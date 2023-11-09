@@ -88,7 +88,9 @@ class Flawfinder(object):
         ]
 
         if not scan_files:
-            print("[error] 文件列表为空")
+            print("[error] To-be-scanned files is empty, return empty result")
+            with open("result.json", "w") as fp:
+                json.dump(result, fp, indent=2)
             return
         cmd.extend(scan_files)
 
@@ -104,7 +106,9 @@ class Flawfinder(object):
                 readers = csv.DictReader(fs_r)
                 output_data = [row for row in readers]
         except:
-            print("[error] 结果文件未找到或无法加载")
+            print("[error] Resulting file not found or cannot be loaded, return empty result")
+            with open("result.json", "w") as fp:
+                json.dump(result, fp, indent=2)
             return
 
         if output_data:
